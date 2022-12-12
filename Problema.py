@@ -97,6 +97,10 @@ class Problema:
         
         return None
 
+    def procuraDFS(self):
+        nodoInicial = self.grafo.getNodo((self.posInicial[0],self.posInicial[1],0,0))
+        return self.grafo.procuraDFS(nodoInicial, self.posFinal)
+
     def procuraBFS(self):
         nodoInicial = self.grafo.getNodo((self.posInicial[0],self.posInicial[1],0,0))
         return self.grafo.procuraBFS(nodoInicial, self.posFinal)

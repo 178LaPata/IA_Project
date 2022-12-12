@@ -29,28 +29,30 @@ def printCaminhoMapa(caminho, custo, mapa):
         os.system("sleep 1")
     
     print(f"Custo={custo}")
-    input("presione alguma tecla para voltar...")
+    input("Pressione alguma tecla para voltar...")
 
 def printMenuPrincipal():
     print("----- Menu Principal -----")
     print("1) Mostrar Mapa")
-    print("2) Procura BFS")
+    print("2) Desenhar Grafo")
+    print("3) Procura DFS")
+    print("4) Procura BFS")
     print("0) Sair")
 
-def lerOpcao(opcMax):
-    opcao = -1
+def leropção(opcMax):
+    opção = -1
     try:
-        opcao = int(input("Introduza uma opcao:"))
+        opção = int(input("Introduza uma opção:"))
     except:
         print("Introduza um valor válido")
 
-    while opcao < 0 or opcao > opcMax:
+    while opção < 0 or opção > opcMax:
         try:
-            opcao = int(input("Introduza uma opcao:"))
+            opção = int(input("Introduza uma opção:"))
         except:
             print("Introduza um valor válido")        
     
-    return opcao
+    return opção
 
 def main ():
     mapastr =  "#######I#######\n#####     #####\n##           ##\n#     ###     #\n#   #######   #\n###  ####    ##\n##   ###    ###\n###   ###    ##\n####        ###\n#######F#######"
@@ -65,12 +67,18 @@ def main ():
     while not sair:
         os.system("clear")
         printMenuPrincipal()
-        opcao = lerOpcao(2)
+        opção = leropção(2)
 
-        if opcao == 1:
+        if opção == 1:
             printMapa(mapa)
-            input("presione alguma tecla para voltar...")
-        elif opcao == 2:
+            input("Pressione alguma tecla para voltar...")
+        elif opção == 2:
+            problema.grafo.desenhaGrafo()
+            input("Pressione alguma tecla para voltar...")
+        elif opção == 3:
+            caminho,custo = problema.procuraDFS()
+            printCaminhoMapa(caminho, custo, mapa)
+        elif opção == 4:
             caminho,custo = problema.procuraBFS()
             printCaminhoMapa(caminho, custo, mapa)
         else:

@@ -10,7 +10,7 @@ class Nodo:
     def __str__(self):
         return f'({self.x},{self.y}),({self.velx},{self.vely})'
 
-    def ___hash__(self):
+    def __hash__(self):
         return hash(repr(self))
 
     def __eq__(self, other):
