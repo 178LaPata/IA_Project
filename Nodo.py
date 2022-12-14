@@ -8,7 +8,7 @@ class Nodo:
         self.vely = vely
 
     def __str__(self):
-        return f'({self.x},{self.y}),({self.velx},{self.vely})'
+        return f'cords:({self.x},{self.y}),({self.velx},{self.vely})'
 
     def __hash__(self):
         return hash(repr(self))

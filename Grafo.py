@@ -10,6 +10,7 @@ class Grafo:
     def __init__(self):
         self.m_nodos = []
         self.m_grafo = {}
+        self.m_h = {} 
     
     #################################
     # Escrever o grafo como string
@@ -95,13 +96,13 @@ class Grafo:
         if nodoInicial == posFinal:
             custoT = self.calculaCusto(path)
             return (path, custoT)
-        for (adj, peso) in self.m_grafo[nodoInicial]:
+        for (adj, peso) in self.m_grafo[str(nodoInicial)]:
             if adj not in visited:
-                resultado = self.procuraDFS(adj, posFinal, path, visited)
+                resultado,_ = self.procuraDFS(adj, posFinal, path, visited)
                 if resultado is not None:
                     return resultado
         path.pop()
-        return None
+        return None, None
 
     #################################
     # Procura BFS
@@ -148,37 +149,157 @@ class Grafo:
         return lista
 
     #################################
-    # Desenha grafo
+    # Define heurística para cada nodo
     #################################
 
-    def desenhaGrafo(self):
-        lista_v = self.m_nodos
-        lista_a = []
-        g = nx.Graph()
-        for nodo in lista_v:
-            n = nodo.getName()
-            g.add_node(n)
-            for (adj, peso) in self.m_grafo[n]:
-                lista = (n, adj)
-                g.add_edge(n, adj, weight=peso)
-
-        pos = nx.spring_layout(g)
-        nx.draw_networkx(g, pos, with_labels=True, font_weight='bold')
-        labels = nx.get_edge_attributes(g, 'weight')
-        nx.draw_networkx_edge_labels(g, pos, edge_labels=labels)
-
-        plt.draw()
-        plt.show()
+    def adicionaHeuristica(self, n, estima):
+        n1 = Nodo(n)
+        if n1 in self.m_nodos:
+            self.m_h[n] = estima
 
     #################################
-    # Heurística
+    # Define heurística para cada nodo 1 por defeito
     #################################
 
+    def heuristica(self):
+        nodos = self.m_graph.keys
+        for n in nodos:
+            self.m_h[n] = 1
+        return (True)
+
+    def calculaEst(self, estima):
+        l = list(estima.keys())
+        min_estima = estima[l[0]]
+        node = l[0]
+        for k, v in estima.items():
+            if v < min_estima:
+                min_estima = v
+                node = k
+        return node
+
     #################################
-    # A*
+    # Procura A*
     #################################
-    def procuraAstar(self, nodoInicial, posFinal):
+
+    def procura_aStar(self, nodoInicial, posFinal):
+        open_list = {nodoInicial}
+        closed_list = set([])
+
+        g = {}
+
+        g[nodoInicial] = 0
+
+        parents = {}
+        parents[nodoInicial] = nodoInicial
+        
+        n = None
+        
+        while len(open_list) > 0:
+            calc_heurist = {}
+            flag = 0
+            
+            for v in open_list:
+                if n == None:
+                    n = v
+                else:
+                    flag = 1
+                    calc_heurist[v] = g[v] + self.getH(v)
+            
+            if flag == 1:
+                min_estima = self.calculaEst(calc_heurist)
+                n = min_estima
+            
+            if n == None:
+                print('Path does not exist!')
+                return None
+
+            if n == posFinal:
+                reconst_path = []
+
+                while parents[n] != n:
+                    reconst_path.append(n)
+                    n = parents[n]
+
+                reconst_path.append(nodoInicial)
+
+                reconst_path.reverse()
+
+                return (reconst_path, self.calculaCusto(reconst_path))
+
+            for (m, peso) in self.getNeighbours(n):
+                if m not in open_list and m not in closed_list:
+                    open_list.add(m)
+                    parents[m] = n
+                    g[m] = g[n] + peso
+
+                else:
+                    if g[m] > g[n] + peso:
+                        g[m] = g[n] + peso
+                        parents[m] = n
+
+                        if m in closed_list:
+                            closed_list.remove(m)
+                            open_list.add(m)
+
+            open_list.remove(n)
+            closed_list.add(n)
+
+        print('Path does not exist!')
         return None
+
     #################################
-    # Greedy
+    # Devolve heurística do nodo
     #################################
+
+    def getH(self, nodo):
+        if nodo not in self.m_h.keys():
+            return 1000
+        else:
+            return (self.m_h[nodo])
+
+    #################################
+    # Procura Greedy
+    #################################
+
+    def procuraGreedy(self, nodoInicial, posFinal):
+        open_list = set([nodoInicial])
+        closed_list = set([]) 
+
+        parents = {}
+        parents[nodoInicial] = nodoInicial
+
+        while len(open_list) > 0:
+            n = None
+
+            for v in open_list:
+                if n == None or self.m_h[v] < self.m_h[n]:
+                    n = v
+
+            if n == None:
+                print("O caminho não existe")
+                return None
+
+            if n == posFinal:
+                reconst_path = []
+
+                while parents[n] != n:
+                    reconst_path.append(n)
+                    n = parents[n]
+
+                reconst_path.append(nodoInicial)
+
+                reconst_path.reverse()
+                
+                return (reconst_path, self.calcula_custo(reconst_path))
+
+            for (m, peso) in self.getNeighbours(n):
+                if m not in open_list and m not in closed_list:
+                    open_list.add(m)
+                    parents[m] = n
+
+            open_list.remove(n)
+            closed_list.add(n)
+
+        print('O caminho não existe!')
+        return None
+

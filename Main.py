@@ -1,7 +1,7 @@
 from copy import deepcopy
 import os
 from Problema import Problema
-
+from Menu import Menu
 
 def printMapa(mapa):
     os.system("clear")
@@ -28,27 +28,29 @@ def printCaminhoMapa(caminho, custo, mapa):
         printMapa(aux)
         os.system("sleep 1")
     
-    print(f"Custo={custo}")
+    print(f"Custo = {custo}")
     input("Pressione alguma tecla para voltar...")
 
 def printMenuPrincipal():
-    print("----- Menu Principal -----")
-    print("1) Mostrar Mapa")
-    print("2) Desenhar Grafo")
-    print("3) Procura DFS")
-    print("4) Procura BFS")
-    print("0) Sair")
+    print(Menu.printMenu())
+    print("1 -> Mostrar Mapa")
+    print("2 -> Desenhar Grafo")
+    print("3 -> Procura DFS")
+    print("4 -> Procura BFS")
+    print("5 -> Procura A*")
+    print("6 -> Procura Greedy")
+    print("0 -> Sair")
 
 def leropção(opcMax):
     opção = -1
     try:
-        opção = int(input("Introduza uma opção:"))
+        opção = int(input("Introduza uma opção: "))
     except:
         print("Introduza um valor válido")
 
     while opção < 0 or opção > opcMax:
         try:
-            opção = int(input("Introduza uma opção:"))
+            opção = int(input("Introduza uma opção: "))
         except:
             print("Introduza um valor válido")        
     
@@ -67,23 +69,29 @@ def main ():
     while not sair:
         os.system("clear")
         printMenuPrincipal()
-        opção = leropção(2)
+        opção = leropção(10)
 
-        if opção == 1:
+        if opção == 1:           
             printMapa(mapa)
             input("Pressione alguma tecla para voltar...")
-        elif opção == 2:
-            problema.grafo.desenhaGrafo()
+        elif opção == 2: 
+            print(problema.grafo)
             input("Pressione alguma tecla para voltar...")
-        elif opção == 3:
-            caminho,custo = problema.procuraDFS()
+        elif opção == 3: # DFS
+            caminho,custo = problema.solucaoDFS()
             printCaminhoMapa(caminho, custo, mapa)
-        elif opção == 4:
-            caminho,custo = problema.procuraBFS()
+        elif opção == 4: # BFS
+            caminho,custo = problema.solucaoBFS()
             printCaminhoMapa(caminho, custo, mapa)
+        elif opção == 5: # A*
+            caminho, custo = problema.solucaoAStar()
+            printCaminhoMapa(caminho, custo, mapa)            
+        elif opção == 6: # Greedy
+            caminho, custo = problema.solucaoGreedy()
+            printCaminhoMapa(caminho, custo, mapa)        
         else:
-            print("A sair..")
+            print("A sair...")
             sair = True
 
 if __name__ == "__main__":
-    main()
+    main()      
