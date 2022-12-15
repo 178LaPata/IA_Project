@@ -36,7 +36,7 @@ def printCaminhoMapa(caminho, custo, mapa):
 def printMenuPrincipal():
     print(Menu.printMenu())
     print("1 -> Mostrar Mapa")
-    print("2 -> Desenhar Grafo")
+    print("2 -> Construir problema e desenhar Grafo")
     print("3 -> Procura DFS")
     print("4 -> Procura BFS")
     print("5 -> Procura A*")
@@ -59,13 +59,9 @@ def leropção(opcMax):
     return opção
 
 def main ():
-    mapastr =  "#######I#######\n#####     #####\n##           ##\n#     ###     #\n#   #######   #\n###  ####    ##\n##   ###    ###\n###   ###    ##\n####        ###\n#######F#######"
-    mapastr = mapastr.split("\n")
-    mapa = [[c for c in linha] for linha in mapastr]
     #  printMapa(mapa)
-    problema = Problema(mapa)
-    print("A construir grafo....")
-    problema.constroiGrafo()
+    #print("A construir grafo....")
+    #problema.constroiGrafo()
     
     sair = False
     while not sair:
@@ -78,9 +74,11 @@ def main ():
             largura = int(input("LARGURA -> "))
             altura = int(input("ALTURA -> "))
             open('Mapa.txt', "w").close() # da clean ao file antes de escrever ???
-            Mapa.mapaAleatorio(largura, altura)
+            mapa = Mapa.mapaAleatorio(largura,altura)
             input("Pressione alguma tecla para voltar...")
         elif opção == 2: 
+            problema = Problema(mapa)
+            problema.constroiGrafo()            
             print(problema.grafo)
             input("Pressione alguma tecla para voltar...")
         #elif opção == 3: # DFS

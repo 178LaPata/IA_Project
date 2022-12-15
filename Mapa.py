@@ -73,7 +73,7 @@ class Mapa:
         Mapa.linhasMeio(largura, altura)
         Mapa.linhaVazia(largura)
         Mapa.linhaMeta(largura)
-        return None
+        return Mapa
 
 
 def printLinhaFile(line):
