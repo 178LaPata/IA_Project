@@ -1,6 +1,8 @@
 from copy import deepcopy
 import os
 from Problema import Problema
+from Menu import Menu
+from Mapa import Mapa
 
 
 def printMapa(mapa):
@@ -28,54 +30,73 @@ def printCaminhoMapa(caminho, custo, mapa):
         printMapa(aux)
         os.system("sleep 1")
     
-    print(f"Custo={custo}")
-    input("presione alguma tecla para voltar...")
+    print(f"Custo = {custo}")
+    input("Pressione alguma tecla para voltar...")
 
 def printMenuPrincipal():
-    print("----- Menu Principal -----")
-    print("1) Mostrar Mapa")
-    print("2) Procura BFS")
-    print("0) Sair")
+    print(Menu.printMenu())
+    print("1 -> Mostrar Mapa")
+    print("2 -> Construir problema e desenhar Grafo")
+    print("3 -> Procura DFS")
+    print("4 -> Procura BFS")
+    print("5 -> Procura A*")
+    print("6 -> Procura Greedy")
+    print("0 -> Sair")
 
-def lerOpcao(opcMax):
-    opcao = -1
+def leropção(opcMax):
+    opção = -1
     try:
-        opcao = int(input("Introduza uma opcao:"))
+        opção = int(input("Introduza uma opção: "))
     except:
         print("Introduza um valor válido")
 
-    while opcao < 0 or opcao > opcMax:
+    while opção < 0 or opção > opcMax:
         try:
-            opcao = int(input("Introduza uma opcao:"))
+            opção = int(input("Introduza uma opção: "))
         except:
             print("Introduza um valor válido")        
     
-    return opcao
+    return opção
 
 def main ():
-    mapastr =  "#######I#######\n#####     #####\n##           ##\n#     ###     #\n#   #######   #\n###  ####    ##\n##   ###    ###\n###   ###    ##\n####        ###\n#######F#######"
-    mapastr = mapastr.split("\n")
-    mapa = [[c for c in linha] for linha in mapastr]
     #  printMapa(mapa)
-    problema = Problema(mapa)
-    print("A construir grafo....")
-    problema.constroiGrafo()
+    #print("A construir grafo....")
+    #problema.constroiGrafo()
     
     sair = False
     while not sair:
         os.system("clear")
         printMenuPrincipal()
-        opcao = lerOpcao(2)
+        opção = leropção(10)
 
-        if opcao == 1:
-            printMapa(mapa)
-            input("presione alguma tecla para voltar...")
-        elif opcao == 2:
-            caminho,custo = problema.procuraBFS()
+        if opção == 1:           
+            #printMapa(mapa)
+            largura = int(input("LARGURA -> "))
+            altura = int(input("ALTURA -> "))
+            open('Mapa.txt', "w").close() # da clean ao file antes de escrever ???
+            mapa = Mapa.mapaAleatorio(largura,altura)
+            input("Pressione alguma tecla para voltar...")
+        elif opção == 2: 
+            problema = Problema(mapa)
+            problema.constroiGrafo()            
+            print(problema.grafo)
+            input("Pressione alguma tecla para voltar...")
+        #elif opção == 3: # DFS
+        #    caminho,custo = problema.solucaoDFS()
+        #    printCaminhoMapa(caminho, custo, mapa)
+        elif opção == 4: # BFS
+            caminho,custo = problema.solucaoBFS()
             printCaminhoMapa(caminho, custo, mapa)
+        #elif opção == 5: # A*
+        #    caminho, custo = problema.solucaoAStar()
+        #    printCaminhoMapa(caminho, custo, mapa)            
+        #elif opção == 6: # Greedy
+        #    caminho, custo = problema.solucaoGreedy()
+        #    printCaminhoMapa(caminho, custo, mapa)        
         else:
-            print("A sair..")
+            print("A sair...")
             sair = True
 
 if __name__ == "__main__":
-    main()
+    main()      
+
