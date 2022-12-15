@@ -32,6 +32,7 @@ def printCaminhoMapa(caminho, custo, mapa):
     
     print(f"Custo = {custo}")
     input("Pressione alguma tecla para voltar...")
+
 def printMenuPrincipal():
     print(Menu.printMenu())
     print("1 -> Mostrar Mapa")
@@ -76,23 +77,24 @@ def main ():
             #printMapa(mapa)
             largura = int(input("LARGURA -> "))
             altura = int(input("ALTURA -> "))
+            open('Mapa.txt', "w").close() # da clean ao file antes de escrever ???
             Mapa.mapaAleatorio(largura, altura)
             input("Pressione alguma tecla para voltar...")
         elif opção == 2: 
             print(problema.grafo)
             input("Pressione alguma tecla para voltar...")
-        elif opção == 3: # DFS
-            caminho,custo = problema.solucaoDFS()
-            printCaminhoMapa(caminho, custo, mapa)
+        #elif opção == 3: # DFS
+        #    caminho,custo = problema.solucaoDFS()
+        #    printCaminhoMapa(caminho, custo, mapa)
         elif opção == 4: # BFS
             caminho,custo = problema.solucaoBFS()
             printCaminhoMapa(caminho, custo, mapa)
-        elif opção == 5: # A*
-            caminho, custo = problema.solucaoAStar()
-            printCaminhoMapa(caminho, custo, mapa)            
-        elif opção == 6: # Greedy
-            caminho, custo = problema.solucaoGreedy()
-            printCaminhoMapa(caminho, custo, mapa)        
+        #elif opção == 5: # A*
+        #    caminho, custo = problema.solucaoAStar()
+        #    printCaminhoMapa(caminho, custo, mapa)            
+        #elif opção == 6: # Greedy
+        #    caminho, custo = problema.solucaoGreedy()
+        #    printCaminhoMapa(caminho, custo, mapa)        
         else:
             print("A sair...")
             sair = True
@@ -100,26 +102,3 @@ def main ():
 if __name__ == "__main__":
     main()      
 
-
-"""
-    elif opção == 5:
-        inicio=input("Nodo inicial->")
-        fim = input("Nodo final->")
-        caminho=problema.solucaoDFS( inicio, fim)
-        print(caminho)
-        if caminho != None:
-        a = caminho[0]
-        lista=problema.imprimeA(a)
-        print(lista)
-        l = input("prima enter para continuar")
-    elif opção == 6:
-        inicio = input("Nodo inicial->")
-        fim = input("Nodo final->")
-        caminho=problema.solucaoBFS(inicio,fim)
-        print(caminho)
-        if caminho != None:
-            a = caminho[0]
-            lista = problema.imprimeA(a)
-            print(lista)
-        l = input("prima enter para continuar")
-"""

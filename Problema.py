@@ -97,18 +97,18 @@ class Problema:
         
         return None
 
-    def solucaoDFS(self):
-        nodoInicial = self.grafo.getNodo((self.posInicial[0],self.posInicial[1],0,0))
-        return self.grafo.procuraDFS(nodoInicial, self.posFinal)
+    #def solucaoDFS(self):
+    #    nodoInicial = self.grafo.getNodo((self.posInicial[0],self.posInicial[1],0,0))
+    #    return self.grafo.procuraDFS(nodoInicial, self.posFinal)
 
     def solucaoBFS(self):
         nodoInicial = self.grafo.getNodo((self.posInicial[0],self.posInicial[1],0,0))
         return self.grafo.procuraBFS(nodoInicial, self.posFinal)
 
-    def solucaoGreedy(self,nodoInicial, posFinal):
-        nodoInicial = self.grafo.getNodo((self.posInicial[0],self.posInicial[1],0,0))
-        return self.grafo.procuraGreedy(nodoInicial, posFinal)
+    #def solucaoGreedy(self,nodoInicial, posFinal):
+    #    nodoInicial = self.grafo.getNodo((self.posInicial[0],self.posInicial[1],0,0))
+    #    return self.grafo.procuraGreedy(nodoInicial, posFinal)
 
-    def solucaoAStar(self, nodoInicial, posFinal):
-        nodoInicial = self.grafo.getNodo((self.posInicial[0],self.posInicial[1],0,0))
-        return self.grafo.procura_aStar(nodoInicial, posFinal)
+    #def solucaoAStar(self, nodoInicial, posFinal):
+    #    nodoInicial = self.grafo.getNodo((self.posInicial[0],self.posInicial[1],0,0))
+    #    return self.grafo.procura_aStar(nodoInicial, posFinal)

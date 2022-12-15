@@ -1,4 +1,5 @@
 import random
+import sys
 class Mapa:
     def randomLinha(largura):
         string = ""
@@ -15,6 +16,7 @@ class Mapa:
                 string += "-"
                 string += " "
         print(string)
+        printLinhaFile(string)
         return None
 
     def linhaPartida(largura):
@@ -28,6 +30,7 @@ class Mapa:
                 string += "#"
                 string += " "
         print(string)
+        printLinhaFile(string)
         return None
 
     def linhaVazia(largura):
@@ -43,6 +46,7 @@ class Mapa:
                 string += "-"
                 string += " "
         print(string)
+        printLinhaFile(string)
 
     def linhasMeio(largura, altura):
         for i in range(altura-4):
@@ -60,6 +64,7 @@ class Mapa:
                 string += "#"
                 string += " "   
         print(string)
+        printLinhaFile(string)
         return None
     
     def mapaAleatorio(largura, altura):
@@ -69,4 +74,13 @@ class Mapa:
         Mapa.linhaVazia(largura)
         Mapa.linhaMeta(largura)
         return None
+
+
+def printLinhaFile(line):
+    original_stdout = sys.stdout
+    with open('Mapa.txt', 'a') as f:
+        sys.stdout = f
+        print(line)
+        sys.stdout = original_stdout
+
 
