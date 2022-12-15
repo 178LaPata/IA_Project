@@ -1,7 +1,10 @@
 import random
 import sys
 class Mapa:
-    def randomLinha(largura):
+    def __init__(self):
+        self.m = []
+        
+    def randomLinha(self, largura):
         string = ""
         for i in range(largura):
             if(i==0):
@@ -15,11 +18,12 @@ class Mapa:
             else:
                 string += "-"
                 string += " "
+            self.m.append(string)
         print(string)
         printLinhaFile(string)
         return None
 
-    def linhaPartida(largura):
+    def linhaPartida(self,largura):
         random_number = random.randint(1, largura-2)
         string = ""
         for i in range(largura):
@@ -29,11 +33,12 @@ class Mapa:
             else:
                 string += "#"
                 string += " "
+            self.m.append(string)
         print(string)
         printLinhaFile(string)
         return None
 
-    def linhaVazia(largura):
+    def linhaVazia(self, largura):
         string = ""
         for i in range(largura):
             if(i==0):
@@ -45,15 +50,16 @@ class Mapa:
             else:
                 string += "-"
                 string += " "
+            self.m.append(string)
         print(string)
         printLinhaFile(string)
 
-    def linhasMeio(largura, altura):
+    def linhasMeio(self, largura, altura):
         for i in range(altura-4):
-            Mapa.randomLinha(largura)
+            self.randomLinha(largura)
         return None
     
-    def linhaMeta(largura):
+    def linhaMeta(self, largura):
         random_number = random.randint(1, largura-2)
         string = ""
         for i in range(largura):
@@ -63,10 +69,20 @@ class Mapa:
             else:
                 string += "#"
                 string += " "   
+            self.m.append(string)
         print(string)
         printLinhaFile(string)
         return None
     
+<<<<<<< HEAD
+    def mapaAleatorio(self, largura, altura):
+        self.linhaPartida(largura)
+        self.linhaVazia(largura)
+        self.linhasMeio(largura, altura)
+        self.linhaVazia(largura)
+        self.linhaMeta(largura)
+        return None
+=======
     def mapaAleatorio(largura, altura):
         Mapa.linhaPartida(largura)
         Mapa.linhaVazia(largura)
@@ -74,6 +90,7 @@ class Mapa:
         Mapa.linhaVazia(largura)
         Mapa.linhaMeta(largura)
         return Mapa
+>>>>>>> 30397a17b14f5ac4957f7712c5a5b3bded6a018d
 
 
 def printLinhaFile(line):

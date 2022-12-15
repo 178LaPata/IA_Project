@@ -59,9 +59,19 @@ def leropção(opcMax):
     return opção
 
 def main ():
+<<<<<<< HEAD
+    # mapastr =  "#######I#######\n#####     #####\n##           ##\n#     ###     #\n#   #######   #\n###  ####    ##\n##   ###    ###\n###   ###    ##\n####        ###\n#######F#######"
+    # mapastr = mapastr.split("\n")
+    # mapa = [[c for c in linha] for linha in mapastr]
+    #  printMapa(mapa)
+    # problema = Problema(mapa)
+    print("A construir grafo....")
+    # problema.constroiGrafo()
+=======
     #  printMapa(mapa)
     #print("A construir grafo....")
     #problema.constroiGrafo()
+>>>>>>> 30397a17b14f5ac4957f7712c5a5b3bded6a018d
     
     sair = False
     while not sair:
@@ -74,11 +84,20 @@ def main ():
             largura = int(input("LARGURA -> "))
             altura = int(input("ALTURA -> "))
             open('Mapa.txt', "w").close() # da clean ao file antes de escrever ???
+<<<<<<< HEAD
+            mapa = Mapa()
+            mapa.mapaAleatorio(largura, altura)
+            input("Pressione alguma tecla para voltar...")
+        elif opção == 2: 
+            problema = Problema(mapa)
+            problema.constroiGrafo()
+=======
             mapa = Mapa.mapaAleatorio(largura,altura)
             input("Pressione alguma tecla para voltar...")
         elif opção == 2: 
             problema = Problema(mapa)
             problema.constroiGrafo()            
+>>>>>>> 30397a17b14f5ac4957f7712c5a5b3bded6a018d
             print(problema.grafo)
             input("Pressione alguma tecla para voltar...")
         #elif opção == 3: # DFS

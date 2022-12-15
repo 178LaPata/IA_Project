@@ -1,5 +1,6 @@
 from Grafo import Grafo
 from Nodo import Nodo
+from Mapa import Mapa
 
 class Problema:
 
@@ -8,7 +9,7 @@ class Problema:
         self.posInicial = [-1,-1]
         self.posFinal   = [-1,-1]
 
-        for y,linha in enumerate(mapa):
+        for y,linha in enumerate(self.mapa.m):
             for x,c in enumerate(linha):
                 if c == "I":
                     self.posInicial = [x,y]
@@ -49,7 +50,7 @@ class Problema:
         pos = [estado[0], estado[1]]
         vel = [estado[2], estado[3]]
 
-        if pos[0]<0 or pos[0] >= len(self.mapa[0]) or pos[1]<0 or pos[1]>=len(self.mapa) or self.mapa[pos[1]][pos[0]] == "#" :
+        if pos[0]<0 or pos[0] >= len(self.mapa.m[0]) or pos[1]<0 or pos[1]>=len(self.mapa.m) or self.mapa.m[pos[1]][pos[0]] == "#" :
             return [((pos[0]-vel[0],pos[1]-vel[1], 0, 0),25)]
 
         jogadasPossiveis = []
@@ -74,7 +75,7 @@ class Problema:
 
         newPos = [pos[0]+vel[0], pos[1]+vel[1]]
 
-        if newPos[0]<0 or newPos[0] >= len(self.mapa[0]) or newPos[1]<0 or newPos[1]>=len(self.mapa) or self.mapa[newPos[1]][newPos[0]] == "#" :
+        if newPos[0]<0 or newPos[0] >= len(self.mapa.m[0]) or newPos[1]<0 or newPos[1]>=len(self.mapa.m) or self.mapa.m[newPos[1]][newPos[0]] == "#" :
             return ((newPos[0], newPos[1], vel[0], vel[1]), 1)
 
         valido = False
@@ -86,10 +87,10 @@ class Problema:
         if yMenor > yMaior:
             yMenor,yMaior = yMaior,yMenor
 
-        if "#" not in self.mapa[yMenor][xMenor:xMaior+1] and "#" not in list(map(lambda l : l[xMaior], self.mapa))[yMenor:yMaior+1]:
+        if "#" not in self.mapa.m[yMenor][xMenor:xMaior+1] and "#" not in list(map(lambda l : l[xMaior], self.mapa.m))[yMenor:yMaior+1]:
             valido = True
 
-        if "#" not in list(map(lambda l : l[xMenor], self.mapa))[yMenor:yMaior+1] and "#" not in self.mapa[yMaior][xMenor:xMaior+1]:
+        if "#" not in list(map(lambda l : l[xMenor], self.mapa.m))[yMenor:yMaior+1] and "#" not in self.mapa.m[yMaior][xMenor:xMaior+1]:
             valido = True
 
         if valido:
