@@ -74,6 +74,7 @@ class Mapa:
         printLinhaFile(string)
         return None
     
+<<<<<<< HEAD
     def mapaAleatorio(self, largura, altura):
         self.linhaPartida(largura)
         self.linhaVazia(largura)
@@ -81,6 +82,15 @@ class Mapa:
         self.linhaVazia(largura)
         self.linhaMeta(largura)
         return None
+=======
+    def mapaAleatorio(largura, altura):
+        Mapa.linhaPartida(largura)
+        Mapa.linhaVazia(largura)
+        Mapa.linhasMeio(largura, altura)
+        Mapa.linhaVazia(largura)
+        Mapa.linhaMeta(largura)
+        return Mapa
+>>>>>>> 30397a17b14f5ac4957f7712c5a5b3bded6a018d
 
 
 def printLinhaFile(line):
