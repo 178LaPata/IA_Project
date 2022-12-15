@@ -1,24 +1,72 @@
 import random
-
-
-
 class Mapa:
-    def linhaPartida(self):
+    def randomLinha(largura):
+        string = ""
+        for i in range(largura):
+            if(i==0):
+                string += "#"
+                string += " "
+            elif(i==largura-1):
+                string += "#"
+            elif(random.randint(1,200) < 70):
+                string += "#"
+                string += " "
+            else:
+                string += "-"
+                string += " "
+        print(string)
         return None
 
-    def linhaVazia(self):
+    def linhaPartida(largura):
+        random_number = random.randint(1, largura-2)
+        string = ""
+        for i in range(largura):
+            if(i==random_number):
+                string += "P"
+                string += " "
+            else:
+                string += "#"
+                string += " "
+        print(string)
         return None
 
-    def linhasMeio(self):
+    def linhaVazia(largura):
+        string = ""
+        for i in range(largura):
+            if(i==0):
+                string += "#"
+                string += " "
+            elif(i==largura-1):
+                string += "#"
+                string += " "
+            else:
+                string += "-"
+                string += " "
+        print(string)
+
+    def linhasMeio(largura, altura):
+        for i in range(altura-4):
+            Mapa.randomLinha(largura)
         return None
     
-    def linhaVazia2(self):
+    def linhaMeta(largura):
+        random_number = random.randint(1, largura-2)
+        string = ""
+        for i in range(largura):
+            if(i==random_number):
+                string += "F"
+                string += " "
+            else:
+                string += "#"
+                string += " "   
+        print(string)
         return None
     
-    def linhaMeta(self):
+    def mapaAleatorio(largura, altura):
+        Mapa.linhaPartida(largura)
+        Mapa.linhaVazia(largura)
+        Mapa.linhasMeio(largura, altura)
+        Mapa.linhaVazia(largura)
+        Mapa.linhaMeta(largura)
         return None
-    
-    def mapaAleatorio():
-        return None
-    
 

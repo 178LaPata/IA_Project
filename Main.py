@@ -2,6 +2,8 @@ from copy import deepcopy
 import os
 from Problema import Problema
 from Menu import Menu
+from Mapa import Mapa
+
 
 def printMapa(mapa):
     os.system("clear")
@@ -30,7 +32,6 @@ def printCaminhoMapa(caminho, custo, mapa):
     
     print(f"Custo = {custo}")
     input("Pressione alguma tecla para voltar...")
-
 def printMenuPrincipal():
     print(Menu.printMenu())
     print("1 -> Mostrar Mapa")
@@ -72,7 +73,10 @@ def main ():
         opção = leropção(10)
 
         if opção == 1:           
-            printMapa(mapa)
+            #printMapa(mapa)
+            largura = int(input("LARGURA -> "))
+            altura = int(input("ALTURA -> "))
+            Mapa.mapaAleatorio(largura, altura)
             input("Pressione alguma tecla para voltar...")
         elif opção == 2: 
             print(problema.grafo)
@@ -95,3 +99,27 @@ def main ():
 
 if __name__ == "__main__":
     main()      
+
+
+"""
+    elif opção == 5:
+        inicio=input("Nodo inicial->")
+        fim = input("Nodo final->")
+        caminho=problema.solucaoDFS( inicio, fim)
+        print(caminho)
+        if caminho != None:
+        a = caminho[0]
+        lista=problema.imprimeA(a)
+        print(lista)
+        l = input("prima enter para continuar")
+    elif opção == 6:
+        inicio = input("Nodo inicial->")
+        fim = input("Nodo final->")
+        caminho=problema.solucaoBFS(inicio,fim)
+        print(caminho)
+        if caminho != None:
+            a = caminho[0]
+            lista = problema.imprimeA(a)
+            print(lista)
+        l = input("prima enter para continuar")
+"""
