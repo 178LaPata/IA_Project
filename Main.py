@@ -36,7 +36,7 @@ def printCaminhoMapa(caminho, custo, mapa):
 def printMenuPrincipal():
     print(Menu.printMenu())
     print("1 -> Mostrar Mapa")
-    print("2 -> Construir problema e desenhar Grafo")
+    print("2 -> Construir problema e desenhar Grafo") # mudar nome
     print("3 -> Procura DFS")
     print("4 -> Procura BFS")
     print("5 -> Procura A*")
