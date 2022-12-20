@@ -21,7 +21,7 @@ def printMapa(mapa):
         print()
 
 def printCaminhoMapa(caminho, custo, mapa):
-    aux = deepcopy(mapa)
+    aux = deepcopy(mapa.m)
 
     for node in caminho:
         #  os.system("clear")
@@ -34,7 +34,7 @@ def printCaminhoMapa(caminho, custo, mapa):
     input("Pressione alguma tecla para voltar...")
 
 def printMenuPrincipal():
-    print(Menu.printMenu())
+    print(Menu().printMenu())
     print("1 -> Mostrar Mapa")
     print("2 -> Construir problema e desenhar Grafo") # mudar nome
     print("3 -> Procura DFS")
@@ -64,9 +64,12 @@ def main ():
     # mapa = [[c for c in linha] for linha in mapastr]
     #  printMapa(mapa)
     # problema = Problema(mapa)
-    print("A construir grafo....")
+    #  print("A construir grafo....")
     # problema.constroiGrafo()
-    
+   
+    problema = None
+    mapa = None
+
     sair = False
     while not sair:
         os.system("clear")
@@ -75,29 +78,53 @@ def main ():
 
         if opção == 1:           
             #printMapa(mapa)
-            largura = int(input("LARGURA -> "))
-            altura = int(input("ALTURA -> "))
-            open('Mapa.txt', "w").close() # da clean ao file antes de escrever ???
-            mapa = Mapa()
-            mapa.mapaAleatorio(largura, altura)
+            if mapa is None:
+                largura = int(input("LARGURA -> "))
+                altura = int(input("ALTURA -> "))
+            #  open('Mapa.txt', "w").close() # da clean ao file antes de escrever ???
+                mapa = Mapa()
+                mapa.mapaAleatorio(largura, altura)
+            mapa.printMapa()
             input("Pressione alguma tecla para voltar...")
         elif opção == 2: 
-            problema = Problema(mapa)
-            problema.constroiGrafo()
+            if mapa is None:
+                print("Mapa deve ser criado primeiramente...")
+                input("Pressione uma tecla para continuar..")
+                continue
+            if problema is None:
+                problema = Problema(mapa)
+                print("A construir grafo....")
+                problema.constroiGrafo()
             print(problema.grafo)
             input("Pressione alguma tecla para voltar...")
-        #elif opção == 3: # DFS
-        #    caminho,custo = problema.solucaoDFS()
-        #    printCaminhoMapa(caminho, custo, mapa)
+        elif opção == 3: # DFS
+            if problema is None:
+                print("Problema deve ser construido primeiro....")
+                input("Pressione alguma tecla para continuar...")
+            else:
+                caminho,custo = problema.solucaoDFS()
+                printCaminhoMapa(caminho, custo, mapa)
         elif opção == 4: # BFS
-            caminho,custo = problema.solucaoBFS()
-            printCaminhoMapa(caminho, custo, mapa)
-        #elif opção == 5: # A*
-        #    caminho, custo = problema.solucaoAStar()
-        #    printCaminhoMapa(caminho, custo, mapa)            
-        #elif opção == 6: # Greedy
-        #    caminho, custo = problema.solucaoGreedy()
-        #    printCaminhoMapa(caminho, custo, mapa)        
+            if problema is None:
+                print("Problema deve ser construido primeiro....")
+                input("Pressione alguma tecla para continuar...")
+            else:
+                caminho,custo = problema.solucaoBFS()
+                printCaminhoMapa(caminho, custo, mapa)
+        elif opção == 5: # A*
+            if problema is None:
+                print("Problema deve ser construido primeiro....")
+                input("Pressione alguma tecla para continuar...")
+            else:
+                caminho, custo = problema.solucaoAStar()
+                printCaminhoMapa(caminho, custo, mapa)            
+        elif opção == 6: # Greedy
+            if problema is None:
+                print("Problema deve ser construido primeiro....")
+                input("Pressione alguma tecla para continuar...")
+            else: 
+                caminho, custo = problema.solucaoGreedy()
+                printCaminhoMapa(caminho, custo, mapa)        
         else:
             print("A sair...")
             sair = True

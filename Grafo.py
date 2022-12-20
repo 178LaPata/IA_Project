@@ -93,14 +93,14 @@ class Grafo:
         path.append(nodoInicial)
         visited.add(nodoInicial)
 
-        if nodoInicial == posFinal:
+        if nodoInicial.getPos() == posFinal:
             custoT = self.calculaCusto(path)
             return (path, custoT)
         for (adj, peso) in self.m_grafo[str(nodoInicial)]:
             if adj not in visited:
                 resultado,_ = self.procuraDFS(adj, posFinal, path, visited)
                 if resultado is not None:
-                    return resultado
+                    return resultado, None
         path.pop()
         return None, None
 

@@ -5,54 +5,68 @@ class Mapa:
         self.m = []
         
     def randomLinha(self, largura):
-        string = ""
+        lista = []
         for i in range(largura):
             if(i==0):
-                string += "#"
-                string += " "
+                lista.append("#")
+                #  string += "#"
+                #  string += " "
             elif(i==largura-1):
-                string += "#"
+                lista.append("#")
+                #  string += "#"
             elif(random.randint(1,200) < 70):
-                string += "#"
-                string += " "
+                lista.append("#")
+                #  string += "#"
+                #  string += " "
             else:
-                string += "-"
-                string += " "
-            self.m.append(string)
-        print(string)
-        printLinhaFile(string)
+                lista.append("-")
+                #  string += "-"
+                #  string += " "
+            #  self.m.append(string)
+        self.m.append(lista)
+        #  print(string)
+        #  printLinhaFile(string)
         return None
 
     def linhaPartida(self,largura):
         random_number = random.randint(1, largura-2)
-        string = ""
+        #  string = ""
+        lista = []
         for i in range(largura):
             if(i==random_number):
-                string += "P"
-                string += " "
+                lista.append("P")
+                #  string += "P"
+                #  string += " "
             else:
-                string += "#"
-                string += " "
-            self.m.append(string)
-        print(string)
-        printLinhaFile(string)
+                lista.append("#")
+                #  string += "#"
+                #  string += " "
+            #  self.m.append(string)
+        self.m.append(lista)
+        #  print(string)
+        #  printLinhaFile(string)
         return None
 
     def linhaVazia(self, largura):
-        string = ""
+        #  string = ""
+        lista = []
         for i in range(largura):
             if(i==0):
-                string += "#"
-                string += " "
+                lista.append("#")
+                #  string += "#"
+                #  string += " "
             elif(i==largura-1):
-                string += "#"
-                string += " "
+                lista.append("#")
+                #  string += "#"
+                #  string += " "
             else:
-                string += "-"
-                string += " "
-            self.m.append(string)
-        print(string)
-        printLinhaFile(string)
+                lista.append("-")
+                #  string += "-"
+                #  string += " "
+            #  self.m.append(string)
+        self.m.append(lista)
+        #  print(string)
+        #  printLinhaFile(string)
 
     def linhasMeio(self, largura, altura):
         for i in range(altura-4):
@@ -61,17 +75,21 @@ class Mapa:
     
     def linhaMeta(self, largura):
         random_number = random.randint(1, largura-2)
-        string = ""
+        #  string = ""
+        lista = []
         for i in range(largura):
             if(i==random_number):
-                string += "F"
-                string += " "
+                lista.append("F")
+                #  string += "F"
+                #  string += " "
             else:
-                string += "#"
-                string += " "   
-            self.m.append(string)
-        print(string)
-        printLinhaFile(string)
+                lista.append("#")
+                #  string += "#"
+                #  string += " "   
+            #  self.m.append(string)
+        self.m.append(lista)
+        #  print(string)
+        #  printLinhaFile(string)
         return None
     
     def mapaAleatorio(self, largura, altura):
@@ -81,6 +99,13 @@ class Mapa:
         self.linhaVazia(largura)
         self.linhaMeta(largura)
         return None
+
+    def printMapa(self):
+        for linha in self.m:
+            for c in linha:
+                print(c, end=" ")
+
+            print()
 
 def printLinhaFile(line):
     original_stdout = sys.stdout

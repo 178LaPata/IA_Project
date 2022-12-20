@@ -5,13 +5,15 @@ from Mapa import Mapa
 class Problema:
 
     def __init__(self, mapa):
-        self.mapa = mapa
+
+        self.mapa = mapa.m
+        #  print(m[0], mapa[0])
         self.posInicial = [-1,-1]
         self.posFinal   = [-1,-1]
 
-        for y,linha in enumerate(self.mapa.m):
+        for y,linha in enumerate(self.mapa):
             for x,c in enumerate(linha):
-                if c == "I":
+                if c == "P":
                     self.posInicial = [x,y]
                 elif c == "F":
                     self.posFinal   = [x,y]
@@ -50,7 +52,7 @@ class Problema:
         pos = [estado[0], estado[1]]
         vel = [estado[2], estado[3]]
 
-        if pos[0]<0 or pos[0] >= len(self.mapa.m[0]) or pos[1]<0 or pos[1]>=len(self.mapa.m) or self.mapa.m[pos[1]][pos[0]] == "#" :
+        if pos[0]<0 or pos[0] >= len(self.mapa[0]) or pos[1]<0 or pos[1]>=len(self.mapa) or self.mapa[pos[1]][pos[0]] == "#" :
             return [((pos[0]-vel[0],pos[1]-vel[1], 0, 0),25)]
 
         jogadasPossiveis = []
@@ -75,7 +77,7 @@ class Problema:
 
         newPos = [pos[0]+vel[0], pos[1]+vel[1]]
 
-        if newPos[0]<0 or newPos[0] >= len(self.mapa.m[0]) or newPos[1]<0 or newPos[1]>=len(self.mapa.m) or self.mapa.m[newPos[1]][newPos[0]] == "#" :
+        if newPos[0]<0 or newPos[0] >= len(self.mapa[0]) or newPos[1]<0 or newPos[1]>=len(self.mapa) or self.mapa[newPos[1]][newPos[0]] == "#" :
             return ((newPos[0], newPos[1], vel[0], vel[1]), 1)
 
         valido = False
@@ -87,10 +89,10 @@ class Problema:
         if yMenor > yMaior:
             yMenor,yMaior = yMaior,yMenor
 
-        if "#" not in self.mapa.m[yMenor][xMenor:xMaior+1] and "#" not in list(map(lambda l : l[xMaior], self.mapa.m))[yMenor:yMaior+1]:
+        if "#" not in self.mapa[yMenor][xMenor:xMaior+1] and "#" not in list(map(lambda l : l[xMaior], self.mapa))[yMenor:yMaior+1]:
             valido = True
 
-        if "#" not in list(map(lambda l : l[xMenor], self.mapa.m))[yMenor:yMaior+1] and "#" not in self.mapa.m[yMaior][xMenor:xMaior+1]:
+        if "#" not in list(map(lambda l : l[xMenor], self.mapa))[yMenor:yMaior+1] and "#" not in self.mapa[yMaior][xMenor:xMaior+1]:
             valido = True
 
         if valido:
@@ -98,18 +100,18 @@ class Problema:
         
         return None
 
-    #def solucaoDFS(self):
-    #    nodoInicial = self.grafo.getNodo((self.posInicial[0],self.posInicial[1],0,0))
-    #    return self.grafo.procuraDFS(nodoInicial, self.posFinal)
+    def solucaoDFS(self):
+        nodoInicial = self.grafo.getNodo((self.posInicial[0],self.posInicial[1],0,0))
+        return self.grafo.procuraDFS(nodoInicial, self.posFinal)
 
     def solucaoBFS(self):
         nodoInicial = self.grafo.getNodo((self.posInicial[0],self.posInicial[1],0,0))
         return self.grafo.procuraBFS(nodoInicial, self.posFinal)
 
-    #def solucaoGreedy(self,nodoInicial, posFinal):
-    #    nodoInicial = self.grafo.getNodo((self.posInicial[0],self.posInicial[1],0,0))
-    #    return self.grafo.procuraGreedy(nodoInicial, posFinal)
+    def solucaoGreedy(self,nodoInicial, posFinal):
+        nodoInicial = self.grafo.getNodo((self.posInicial[0],self.posInicial[1],0,0))
+        return self.grafo.procuraGreedy(nodoInicial, posFinal)
 
-    #def solucaoAStar(self, nodoInicial, posFinal):
-    #    nodoInicial = self.grafo.getNodo((self.posInicial[0],self.posInicial[1],0,0))
-    #    return self.grafo.procura_aStar(nodoInicial, posFinal)
+    def solucaoAStar(self, nodoInicial, posFinal):
+        nodoInicial = self.grafo.getNodo((self.posInicial[0],self.posInicial[1],0,0))
+        return self.grafo.procura_aStar(nodoInicial, posFinal)

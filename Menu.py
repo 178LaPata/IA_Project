@@ -1,7 +1,7 @@
 import colorama 
 from colorama import Fore
 class Menu:
-    def printMenu():
+    def printMenu(self):
         print(Fore.RED + '  ____                 _____               _             ')
         print(" |  _ \ __ _  ___ ___ |_   _| __ __ _  ___| | _____ _ __ ")
         print(" | |_) / _` |/ __/ _ \  | || '__/ _` |/ __| |/ / _ \ '__|")
