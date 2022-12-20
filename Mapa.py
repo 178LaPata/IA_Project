@@ -107,11 +107,11 @@ class Mapa:
 
             print()
 
-def printLinhaFile(line):
-    original_stdout = sys.stdout
-    with open('Mapa.txt', 'a') as f:
-        sys.stdout = f
-        print(line)
-        sys.stdout = original_stdout
+#def printLinhaFile(line):
+#    original_stdout = sys.stdout
+#    with open('Mapa.txt', 'a') as f:
+#        sys.stdout = f
+#        print(line)
+#        sys.stdout = original_stdout
 
 

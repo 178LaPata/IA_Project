@@ -36,7 +36,7 @@ def printCaminhoMapa(caminho, custo, mapa):
 def printMenuPrincipal():
     print(Menu().printMenu())
     print("1 -> Mostrar Mapa")
-    print("2 -> Construir problema e desenhar Grafo") # mudar nome
+    print("2 -> Construir Grafo")
     print("3 -> Procura DFS")
     print("4 -> Procura BFS")
     print("5 -> Procura A*")
@@ -62,9 +62,9 @@ def main ():
     # mapastr =  "#######I#######\n#####     #####\n##           ##\n#     ###     #\n#   #######   #\n###  ####    ##\n##   ###    ###\n###   ###    ##\n####        ###\n#######F#######"
     # mapastr = mapastr.split("\n")
     # mapa = [[c for c in linha] for linha in mapastr]
-    #  printMapa(mapa)
+    # printMapa(mapa)
     # problema = Problema(mapa)
-    #  print("A construir grafo....")
+    # print("A construir grafo....")
     # problema.constroiGrafo()
    
     problema = None
@@ -81,7 +81,7 @@ def main ():
             if mapa is None:
                 largura = int(input("LARGURA -> "))
                 altura = int(input("ALTURA -> "))
-            #  open('Mapa.txt', "w").close() # da clean ao file antes de escrever ???
+                #open('Mapa.txt', "w").close() # da clean ao file antes de escrever ???
                 mapa = Mapa()
                 mapa.mapaAleatorio(largura, altura)
             mapa.printMapa()
@@ -95,7 +95,7 @@ def main ():
                 problema = Problema(mapa)
                 print("A construir grafo....")
                 problema.constroiGrafo()
-            print(problema.grafo)
+            #print(problema.grafo)
             input("Pressione alguma tecla para voltar...")
         elif opção == 3: # DFS
             if problema is None:

@@ -144,7 +144,7 @@ class Grafo:
 
     def getNeighbours(self, nodo):
         lista = []
-        for (adj, peso) in self.m_grafo[nodo]:
+        for (adj, peso) in self.m_grafo[str(nodo)]:
             lista.append((adj, peso))
         return lista
 
@@ -186,7 +186,6 @@ class Grafo:
         closed_list = set([])
 
         g = {}
-
         g[nodoInicial] = 0
 
         parents = {}
@@ -226,20 +225,20 @@ class Grafo:
 
                 return (reconst_path, self.calculaCusto(reconst_path))
 
-            for (m, peso) in self.getNeighbours(n):
-                if m not in open_list and m not in closed_list:
-                    open_list.add(m)
-                    parents[m] = n
-                    g[m] = g[n] + peso
+            for (adj, peso) in self.getNeighbours(n):
+                if adj not in open_list and adj not in closed_list:
+                    open_list.add(adj)
+                    parents[adj] = n
+                    g[adj] = g[n] + peso
 
                 else:
-                    if g[m] > g[n] + peso:
-                        g[m] = g[n] + peso
-                        parents[m] = n
+                    if g[adj] > g[n] + peso:
+                        g[adj] = g[n] + peso
+                        parents[adj] = n
 
-                        if m in closed_list:
-                            closed_list.remove(m)
-                            open_list.add(m)
+                        if adj in closed_list:
+                            closed_list.remove(adj)
+                            open_list.add(adj)
 
             open_list.remove(n)
             closed_list.add(n)
