@@ -4,7 +4,6 @@ from Problema import Problema
 from Menu import Menu
 from Mapa import Mapa
 
-
 def printMapa(mapa):
     os.system("clear")
    

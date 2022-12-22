@@ -161,10 +161,10 @@ class Grafo:
     # Define heurística para cada nodo 1 por defeito
     #################################
 
-    def heuristica(self):
-        nodos = self.m_graph.keys
+    def heuristica(self, posFinal):
+        nodos = self.m_graph.keys()
         for n in nodos:
-            self.m_h[n] = 1
+            self.m_h[n] = math.sqrt((posFinal.x - n.x)**2 + (posFinal.y - n.y)**2)
         return (True)
 
     def calculaEst(self, estima):
@@ -254,7 +254,7 @@ class Grafo:
         if nodo not in self.m_h.keys():
             return 1000
         else:
-            return (self.m_h[nodo])
+            return (self.m_h[str(nodo)])
 
     #################################
     # Procura Greedy

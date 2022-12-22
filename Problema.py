@@ -108,10 +108,11 @@ class Problema:
         nodoInicial = self.grafo.getNodo((self.posInicial[0],self.posInicial[1],0,0))
         return self.grafo.procuraBFS(nodoInicial, self.posFinal)
 
+    def solucaoAStar(self):
+        nodoInicial = self.grafo.getNodo((self.posInicial[0],self.posInicial[1],0,0))
+        return self.grafo.procura_aStar(nodoInicial, self.posFinal)
+
     def solucaoGreedy(self):
         nodoInicial = self.grafo.getNodo((self.posInicial[0],self.posInicial[1],0,0))
         return self.grafo.procuraGreedy(nodoInicial, self.posFinal)
 
-    def solucaoAStar(self):
-        nodoInicial = self.grafo.getNodo((self.posInicial[0],self.posInicial[1],0,0))
-        return self.grafo.procura_aStar(nodoInicial, self.posFinal)

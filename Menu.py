@@ -14,8 +14,5 @@ class Menu:
         print("      \____|_|   \__,_| .__/ \___/     |_|   /_/ ")
         print("                    |_|                          ")
         print("                                                 ")
-
         print(Fore.BLUE + '                      BEM-VINDO                      ')
         print(Fore.WHITE + '')
-
-
