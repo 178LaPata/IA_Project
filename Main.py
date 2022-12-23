@@ -1,4 +1,5 @@
 from copy import deepcopy
+from colorama import Fore
 import os
 from Problema import Problema
 from Menu import printMenu
@@ -9,14 +10,14 @@ def printMapa(mapa):
     
     MAXX = len(mapa[0])
     
-    print(len(str(len(mapa))) * " ", end="")
+    print((len(str(len(mapa)))+1) * " ", end="")
     
     for x in range(0, MAXX):
         print(f"{x:<{len(str(MAXX))}}", end="")
     print()
 
     for y, linha in enumerate(mapa):
-        print(y, end=(len(str(len(mapa)))-1) * " ")
+        print(y, end=(len(str(len(mapa)))+1-len(str(y))) * " ")
         for val in linha:
             #  print(val, end="")
             print(f"{val:{len(str(MAXX))}}", end="")
@@ -32,6 +33,8 @@ def printCaminhoMapa(caminho, custo, mapa):
             aux[posAnt[1]][posAnt[0]] = "#"
         #  os.system("clear")
         pos = node.getPos()
+        if (pos[0] < 0 or pos[0] > len(aux[0])) or (pos[1] < 0 or pos[1] > len(aux)):
+            continue
         if aux[pos[1]][pos[0]] == "#":
             parede = True
         else:

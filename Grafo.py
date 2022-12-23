@@ -101,9 +101,9 @@ class Grafo:
             return (caminho, custoT)
         for (adj, peso) in self.m_grafo[str(nodoInicial)]:
             if adj not in visited:
-                resultado,_ = self.procuraDFS(adj, posFinal, caminho, visited)
+                resultado,custoT = self.procuraDFS(adj, posFinal, caminho, visited)
                 if resultado is not None:
-                    return resultado, None
+                    return resultado, custoT
         caminho.pop()
         return None, None
 
