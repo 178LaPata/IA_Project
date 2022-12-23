@@ -94,13 +94,13 @@ def main ():
                 problema = Problema(mapa)
                 print("A construir grafo....")
                 problema.constroiGrafo()
-            #print(problema.grafo)
+                #print(problema.grafo)
             input("Pressione alguma tecla para voltar...")
         elif opção == 3: # DFS
             if problema is None:
                 print("Problema deve ser construido primeiro....")
                 input("Pressione alguma tecla para continuar...")
-            else:
+            else: 
                 caminho,custo = problema.solucaoDFS()
                 printCaminhoMapa(caminho, custo, mapa)
         elif opção == 4: # BFS
@@ -116,7 +116,7 @@ def main ():
                 input("Pressione alguma tecla para continuar...")
             else:
                 caminho, custo = problema.solucaoAStar()
-                printCaminhoMapa(*caminho, custo, mapa)            
+                printCaminhoMapa(caminho, custo, mapa)            
         elif opção == 6: # Greedy
             if problema is None:
                 print("Problema deve ser construido primeiro....")

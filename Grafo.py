@@ -205,7 +205,7 @@ class Grafo:
                 else:
                     flag = 1
                     calc_heurist[v] = g[v] + self.getH(v)
-            
+            print(n)
             if flag == 1:
                 min_estima = self.calculaEst(calc_heurist)
                 n = min_estima
