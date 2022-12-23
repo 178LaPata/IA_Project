@@ -89,19 +89,19 @@ class Grafo:
     # Procura DFS
     #################################
 
-    def procuraDFS(self, nodoInicial, posFinal, path=[], visited=set()):
-        path.append(nodoInicial)
+    def procuraDFS(self, nodoInicial, posFinal, caminho=[], visited=set()):
+        caminho.append(nodoInicial)
         visited.add(nodoInicial)
 
         if nodoInicial.getPos() == posFinal:
-            custoT = self.calculaCusto(path)
-            return (path, custoT)
+            custoT = self.calculaCusto(caminho)
+            return (caminho, custoT)
         for (adj, peso) in self.m_grafo[str(nodoInicial)]:
             if adj not in visited:
-                resultado,_ = self.procuraDFS(adj, posFinal, path, visited)
+                resultado,_ = self.procuraDFS(adj, posFinal, caminho, visited)
                 if resultado is not None:
                     return resultado, None
-        path.pop()
+        caminho.pop()
         return None, None
 
     #################################
@@ -194,6 +194,8 @@ class Grafo:
         n = None
         
         while len(open_list) > 0:
+            #n = None
+
             calc_heurist = {}
             flag = 0
             
@@ -209,7 +211,7 @@ class Grafo:
                 n = min_estima
             
             if n == None:
-                print('Path does not exist!')
+                print('O caminho não existe')
                 return None
 
             if n == posFinal:
@@ -243,7 +245,7 @@ class Grafo:
             open_list.remove(n)
             closed_list.add(n)
 
-        print('Path does not exist!')
+        print('O caminho não existe')
         return None
 
     #################################
@@ -271,7 +273,7 @@ class Grafo:
             n = None
 
             for v in open_list:
-                if n == None or self.m_h[v] < self.m_h[n]:
+                if n == None or self.m_h(v) < self.m_h(n):
                     n = v
 
             if n == None:
@@ -289,12 +291,12 @@ class Grafo:
 
                 reconst_path.reverse()
                 
-                return (reconst_path, self.calcula_custo(reconst_path))
+                return (reconst_path, self.calculaCusto(reconst_path))
 
-            for (m, peso) in self.getNeighbours(n):
-                if m not in open_list and m not in closed_list:
-                    open_list.add(m)
-                    parents[m] = n
+            for (adj, peso) in self.getNeighbours(n):
+                if adj not in open_list and adj not in closed_list:
+                    open_list.add(adj)
+                    parents[adj] = n
 
             open_list.remove(n)
             closed_list.add(n)
