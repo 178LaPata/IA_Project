@@ -19,7 +19,7 @@ class Problema:
                     self.posFinal   = [x,y]
     
         #  print(self.posInicial, self.posFinal)
-        self.grafo = Grafo()
+        self.grafo = Grafo(mapa.m)
 
     def constroiGrafo(self):
 
@@ -38,7 +38,7 @@ class Problema:
 
             if len(expandir) == 0:
                 continue
-    
+
             #  print(len(paraExpandir), len(expandidos))
 
             for est,peso in expandir:
@@ -46,6 +46,8 @@ class Problema:
                 if est not in expandidos and est not in paraExpandir:
                     paraExpandir.append(est)
                     expandidos.add(est)
+
+        self.grafo.heuristica(Nodo(self.posFinal[0], self.posFinal[1], 0,0))
 
     def expande(self, estado):
 

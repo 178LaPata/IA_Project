@@ -3,14 +3,17 @@ from queue import Queue
 from Nodo import Nodo
 
 import networkx as nx 
-import matplotlib.pyplot as plt  
+import matplotlib.pyplot as plt 
+from colorama import Fore
+
 
 class Grafo:
 
-    def __init__(self):
+    def __init__(self, mapa):
         self.m_nodos = []
         self.m_grafo = {}
         self.m_h = {} 
+        self.mapa = mapa
     
     #################################
     # Escrever o grafo como string
@@ -162,9 +165,9 @@ class Grafo:
     #################################
 
     def heuristica(self, posFinal):
-        nodos = self.m_graph.keys()
+        nodos = self.m_nodos
         for n in nodos:
-            self.m_h[n] = math.sqrt((posFinal.x - n.x)**2 + (posFinal.y - n.y)**2)
+            self.m_h[str(n)] = math.sqrt((posFinal.x - n.x)**2 + (posFinal.y - n.y)**2)
         return (True)
 
     def calculaEst(self, estima):
@@ -205,16 +208,17 @@ class Grafo:
                 else:
                     flag = 1
                     calc_heurist[v] = g[v] + self.getH(v)
-            print(n)
+            
+
             if flag == 1:
                 min_estima = self.calculaEst(calc_heurist)
                 n = min_estima
-            
+
             if n == None:
                 print('O caminho não existe')
                 return None
 
-            if n == posFinal:
+            if n.getPos() == posFinal:
                 reconst_path = []
 
                 while parents[n] != n:
@@ -228,7 +232,9 @@ class Grafo:
                 return (reconst_path, self.calculaCusto(reconst_path))
 
             for (adj, peso) in self.getNeighbours(n):
+
                 if adj not in open_list and adj not in closed_list:
+
                     open_list.add(adj)
                     parents[adj] = n
                     g[adj] = g[n] + peso
@@ -273,14 +279,14 @@ class Grafo:
             n = None
 
             for v in open_list:
-                if n == None or self.m_h(v) < self.m_h(n):
+                if n == None or self.m_h[str(v)] < self.m_h[str(n)]:
                     n = v
 
             if n == None:
                 print("O caminho não existe")
                 return None
 
-            if n == posFinal:
+            if n.getPos() == posFinal:
                 reconst_path = []
 
                 while parents[n] != n:

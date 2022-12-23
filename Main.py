@@ -1,19 +1,22 @@
 from copy import deepcopy
 import os
 from Problema import Problema
-from Menu import Menu
+from Menu import printMenu
 from Mapa import Mapa
 
 def printMapa(mapa):
     os.system("clear")
-   
+    
     MAXX = len(mapa[0])
+    
     print(len(str(len(mapa))) * " ", end="")
+    
     for x in range(0, MAXX):
         print(f"{x:<{len(str(MAXX))}}", end="")
     print()
+
     for y, linha in enumerate(mapa):
-        print(y, end=" ")
+        print(y, end=(len(str(len(mapa)))-1) * " ")
         for val in linha:
             #  print(val, end="")
             print(f"{val:{len(str(MAXX))}}", end="")
@@ -22,18 +25,29 @@ def printMapa(mapa):
 def printCaminhoMapa(caminho, custo, mapa):
     aux = deepcopy(mapa.m)
 
+    posAnt = [-1,-1]
+    parede = False
     for node in caminho:
+        if parede:
+            aux[posAnt[1]][posAnt[0]] = "#"
         #  os.system("clear")
         pos = node.getPos()
+        if aux[pos[1]][pos[0]] == "#":
+            parede = True
+        else:
+            parede = False
         aux[pos[1]][pos[0]] = "o"
+
         printMapa(aux)
         os.system("sleep 1")
+
+        posAnt = pos
     
     print(f"Custo = {custo}")
     input("Pressione alguma tecla para voltar...")
 
 def printMenuPrincipal():
-    print(Menu().printMenu())
+    printMenu()
     print("1 -> Mostrar Mapa")
     print("2 -> Construir Grafo")
     print("3 -> Procura DFS")
