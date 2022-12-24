@@ -48,7 +48,35 @@ class Problema:
                     expandidos.add(est)
 
         self.grafo.heuristica(Nodo(self.posFinal[0], self.posFinal[1], 0,0))
+    """
+        def constroiGrafo2(self):
 
+            estadoInicial = (self.posInicial[0], self.posInicial[1], 0, 0)
+            paraExpandir = []
+            paraExpandir.append(estadoInicial)
+            self.grafo.m_nodos.append(Nodo(*estadoInicial))
+            self.grafo.m_grafo[str(Nodo(*estadoInicial))] = list()
+            expandidos = set()
+
+            while len(paraExpandir) > 0:
+
+                estado = paraExpandir.pop(0)
+                expandir = self.expande(estado)
+                expandidos.add(estado)
+
+                if len(expandir) == 0:
+                    continue
+
+                #  print(len(paraExpandir), len(expandidos))
+
+                for est,peso in expandir:
+                    self.grafo.adicionaAresta(estado, est, peso)
+                    if est not in expandidos and est not in paraExpandir:
+                        paraExpandir.append(est)
+                        expandidos.add(est)
+
+            self.grafo.heuristica(Nodo(self.posFinal[0], self.posFinal[1], 0,0))
+    """
     def expande(self, estado):
 
         pos = [estado[0], estado[1]]
