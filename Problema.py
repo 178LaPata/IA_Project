@@ -7,7 +7,7 @@ class Problema:
     def __init__(self, mapa):
 
         self.mapa = mapa.m
-        #  print(m[0], mapa[0])
+        # print(m[0], mapa[0])
         self.posInicial = [-1,-1]
         self.posFinal   = [-1,-1]
 
@@ -48,35 +48,35 @@ class Problema:
                     expandidos.add(est)
 
         self.grafo.heuristica(Nodo(self.posFinal[0], self.posFinal[1], 0,0))
-    """
-        def constroiGrafo2(self):
 
-            estadoInicial = (self.posInicial[0], self.posInicial[1], 0, 0)
-            paraExpandir = []
-            paraExpandir.append(estadoInicial)
-            self.grafo.m_nodos.append(Nodo(*estadoInicial))
-            self.grafo.m_grafo[str(Nodo(*estadoInicial))] = list()
-            expandidos = set()
+    def constroiGrafo2(self):
 
-            while len(paraExpandir) > 0:
+        estadoInicial = (self.posInicial[0], self.posInicial[1], 0, 0)
+        paraExpandir = []
+        paraExpandir.append(estadoInicial)
+        self.grafo.m_nodos.append(Nodo(*estadoInicial))
+        self.grafo.m_grafo[str(Nodo(*estadoInicial))] = list()
+        expandidos = set()
 
-                estado = paraExpandir.pop(0)
-                expandir = self.expande(estado)
-                expandidos.add(estado)
+        while len(paraExpandir) > 0:
 
-                if len(expandir) == 0:
-                    continue
+            estado = paraExpandir.pop(0)
+            expandir = self.expande(estado)
+            expandidos.add(estado)
 
-                #  print(len(paraExpandir), len(expandidos))
+            if len(expandir) == 0:
+                continue
 
-                for est,peso in expandir:
-                    self.grafo.adicionaAresta(estado, est, peso)
-                    if est not in expandidos and est not in paraExpandir:
-                        paraExpandir.append(est)
-                        expandidos.add(est)
+            #  print(len(paraExpandir), len(expandidos))
 
-            self.grafo.heuristica(Nodo(self.posFinal[0], self.posFinal[1], 0,0))
-    """
+            for est,peso in expandir:
+                self.grafo.adicionaAresta(estado, est, peso)
+                if est not in expandidos and est not in paraExpandir:
+                    paraExpandir.append(est)
+                    expandidos.add(est)
+
+        self.grafo.heuristica(Nodo(self.posFinal[0], self.posFinal[1], 0,0))
+
     def expande(self, estado):
 
         pos = [estado[0], estado[1]]

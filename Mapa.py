@@ -29,11 +29,11 @@ class Mapa:
         return None
 
     def linhaPartida(self,largura):
-        random_number = random.randint(1, largura-2)
+        random_number = random.randint(2, largura-3)
         #  string = ""
         lista = []
         for i in range(largura):
-            if(i==random_number):
+            if(i==random_number or i==(random_number+1) or i==(random_number-1)):
                 lista.append("P")
                 #  string += "P"
                 #  string += " "
@@ -74,11 +74,11 @@ class Mapa:
         return None
     
     def linhaMeta(self, largura):
-        random_number = random.randint(1, largura-2)
+        random_number = random.randint(2, largura-3)
         #  string = ""
         lista = []
         for i in range(largura):
-            if(i==random_number):
+            if(i==random_number  or i==(random_number+1) or i==(random_number-1)):
                 lista.append("F")
                 #  string += "F"
                 #  string += " "

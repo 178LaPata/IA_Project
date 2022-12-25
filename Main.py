@@ -114,7 +114,7 @@ def main ():
                 continue
             if player is None:
                 printJogadores()
-                opçãoJogador = leropção(5)
+                opçãoJogador = leropção(2)
                 if opçãoJogador == 1:
                     player = 1
                 elif opçãoJogador == 2:
@@ -125,10 +125,18 @@ def main ():
                 print("Mapa deve ser criado primeiro...")
                 input("Pressione alguma tecla para continuar...")
                 continue
+            if player is None:
+                print("Número de jogadores deve ser selecionado primeiro")
+                input("Pressione alguma tecla para continuar...")
+                continue
             if problema is None:
                 problema = Problema(mapa)
                 print("A construir grafo...")
-                problema.constroiGrafo()
+                if player == 1:
+                    problema.constroiGrafo()
+                elif player == 2:
+                    problema.constroiGrafo()
+                    problema.constroiGrafo2()
                 #print(problema.grafo)
             input("Pressione alguma tecla para voltar...")
         elif opção == 4: # DFS
