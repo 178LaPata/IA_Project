@@ -68,6 +68,7 @@ def printMenuInicial():
     print("1 -> Mostrar Mapa")
     print("2 -> Single Player")
     print("3 -> Multiplayer")
+    print("0 -> Sair")
 
 def printSinglePlayer():
     print("1 -> Construir Problema")
@@ -121,7 +122,7 @@ def main ():
         os.system("clear")
         printMenu()
         printMenuInicial()
-        opção = leropção(3)
+        opção = leropção(5)
 
         if opção == 1:
             if mapa is None:
@@ -131,7 +132,7 @@ def main ():
                 mapa.mapaAleatorio(largura, altura)
             mapa.printMapa()
             input("Pressione alguma tecla para voltar...")   
-        elif opção == 2:
+        elif opção == 2: # 1 JOGADOR
             if mapa is None:
                 print("Mapa deve ser criado primeiro...")
                 input("Pressione alguma tecla para continuar...")
@@ -175,7 +176,7 @@ def main ():
             else:
                 print("A sair...")
                 sair = True
-        elif opção == 3:
+        elif opção == 3: # 2 JOGADORES
             if mapa is None:
                 print("Mapa deve ser criado primeiro...")
                 input("Pressione alguma tecla para continuar...")
@@ -195,8 +196,11 @@ def main ():
                     input("Pressione alguma tecla para continuar...")
                 else: 
                     printAlgoritmos()
+                    print("Escolha o algoritmo de procura para cada jogador")
+                    player1 = int(input("Jogador 1 -> "))
+                    player2 = int(input("Jogador 2 -> "))
                     opçãoAlg = leropção(5)
-                    if opçãoAlg == 1:
+                    if opçãoAlg == 1: # DFS
                         if problema is None:
                             print("Problema deve ser construido primeiro...")
                             input("Pressione alguma tecla para continuar...")
@@ -225,6 +229,9 @@ def main ():
                             caminho, custo = problema.solucaoGreedy()
                             printCaminhoMapa(caminho, custo, mapa)    
             else:
+                print("A sair...")
+                sair = True
+        else:
                 print("A sair...")
                 sair = True
 
