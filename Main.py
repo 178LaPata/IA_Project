@@ -1,5 +1,3 @@
-#import pygame
-#from pygame.locals import *
 from copy import deepcopy
 from colorama import Fore
 import os
@@ -49,23 +47,60 @@ def printCaminhoMapa(caminho, custo, mapa):
     print(f"Custo = {custo}")
     input("Pressione alguma tecla para voltar...")
 
-def printMenuInicial():
+def printCaminhoComp(caminho, caminho2, custo, custo2, mapa):
+    aux1 = deepcopy(mapa.m)
+
+    posAnt1 = [-1,-1]
+    posAnt2 = [-1,-1]
+    parede = False
+    for node in caminho:
+        if parede:
+            aux1[posAnt1[1]][posAnt1[0]] = "#"
+        pos1 = node.getPos()
+        if (pos1[0] < 0 or pos1[0] > len(aux1[0])) or (pos1[1] < 0 or pos1[1] > len(aux1)):
+            continue
+        if aux1[pos1[1]][pos1[0]] == "#":
+            parede = True
+        else:
+            parede = False
+        aux1[pos1[1]][pos1[0]] = "O"
+
+        printMapa(aux1)
+        os.system("sleep 1")
+
+        posAnt1 = pos1
+
+    for node in caminho2:
+        if parede:
+            aux1[posAnt2[1]][posAnt2[0]] = "#"
+        pos2 = node.getPos()
+        if (pos2[0] < 0 or pos2[0] > len(aux1[0])) or (pos2[1] < 0 or pos2[1] > len(aux1)):
+            continue
+        if aux1[pos2[1]][pos2[0]] == "#":
+            parede = True
+        else:
+            parede = False
+        aux1[pos2[1]][pos2[0]] = "C"
+
+        printMapa(aux1)
+        os.system("sleep 1")
+
+        posAnt2 = pos2
+
+    print(f"Custo Jogador 1 = {custo}")
+    print(f"Custo Jogador 2 = {custo2}")
+
+    input("Pressione alguma tecla para voltar...")
+
+def printMenuPrincipal():
+    printMenu()
     print("1 -> Mostrar Mapa")
-    print("2 -> Single Player")
-    print("3 -> Multiplayer")
-    print("0 -> Sair")
-
-def printSinglePlayer():
-    print("1 -> Construir Problema")
-    print("2 -> Procura DFS")
-    print("3 -> Procura BFS")
-    print("4 -> Procura A*")
-    print("5 -> Procura Greedy")
-    print("0 -> Sair")
-
-def printMultiPlayer():
-    print("1 -> Construir Problema")
-    print("2 -> Algoritmos de Procura")
+    print("2 -> Construir Grafo")
+    print("3 -> Procura DFS")
+    print("4 -> Procura BFS")
+    print("5 -> Procura A*")
+    print("6 -> Procura Greedy")
+    print("7 -> Modo Competitivo")
     print("0 -> Sair")
 
 def printAlgoritmos():
@@ -92,125 +127,99 @@ def leropção(opcMax):
 def main ():
     problema = None
     mapa = None
-    player = None
 
     sair = False
     while not sair:
         os.system("clear")
-        printMenu()
-        printMenuInicial()
-        opção = leropção(5)
+        printMenuPrincipal()
+        opção = leropção(10)
 
-        if opção == 1:
+        if opção == 1:           
             if mapa is None:
                 largura = int(input("LARGURA -> "))
                 altura = int(input("ALTURA -> "))
                 mapa = Mapa()
                 mapa.mapaAleatorio(largura, altura)
             mapa.printMapa()
-            input("Pressione alguma tecla para voltar...")   
-        elif opção == 2: # 1 JOGADOR
+            input("Pressione alguma tecla para voltar...")
+        elif opção == 2: 
             if mapa is None:
                 print("Mapa deve ser criado primeiro...")
-                input("Pressione alguma tecla para continuar...")
+                input("Pressione uma tecla para continuar...")
                 continue
-            printSinglePlayer()
-            opçãoSingle = leropção(6)
-            if opçãoSingle == 1: # Constroi Problema
-                if problema is None:
-                    problema = Problema(mapa)
-                    print("A construir grafo....")
-                    problema.constroiGrafo()
-                input("Pressione alguma tecla para voltar...")
-            elif opçãoSingle == 2: # DFS
-                if problema is None:
-                    print("Problema deve ser construido primeiro...")
-                    input("Pressione alguma tecla para continuar...")
-                else: 
-                    caminho,custo = problema.solucaoDFS()
-                    printCaminhoMapa(caminho, custo, mapa)
-            elif opçãoSingle == 4: # BFS
-                if problema is None:
-                    print("Problema deve ser construido primeiro...")
-                    input("Pressione alguma tecla para continuar...")
-                else:
-                    caminho,custo = problema.solucaoBFS()
-                    printCaminhoMapa(caminho, custo, mapa)
-            elif opçãoSingle == 5: # A*
-                if problema is None:
-                    print("Problema deve ser construido primeiro...")
-                    input("Pressione alguma tecla para continuar...")
-                else:
-                    caminho, custo = problema.solucaoAStar()
-                    printCaminhoMapa(caminho, custo, mapa)            
-            elif opçãoSingle == 6: # Greedy
-                if problema is None:
-                    print("Problema deve ser construido primeiro...")
-                    input("Pressione alguma tecla para continuar...")
-                else: 
-                    caminho, custo = problema.solucaoGreedy()
-                    printCaminhoMapa(caminho, custo, mapa)
-            else:
-                print("A sair...")
-                sair = True
-        elif opção == 3: # 2 JOGADORES
-            if mapa is None:
-                print("Mapa deve ser criado primeiro...")
+            if problema is None:
+                problema = Problema(mapa)
+                print("A construir grafo...")
+                problema.constroiGrafo()
+            input("Pressione alguma tecla para voltar...")
+        elif opção == 3: # DFS
+            if problema is None:
+                print("Problema deve ser construido primeiro...")
                 input("Pressione alguma tecla para continuar...")
-                continue
-            printMultiPlayer()
-            opçãoMulti = leropção(3)            
-            if opçãoMulti == 1: # Constroi Problema
-                if problema is None:
-                    problema = Problema(mapa)
-                    print("A construir grafo....")
-                    problema.constroiGrafo()
-                input("Pressione alguma tecla para voltar...")
-            elif opçãoMulti == 2: # Algoritmos de Procura
-                if problema is None:
-                    print("Problema deve ser construido primeiro...")
-                    input("Pressione alguma tecla para continuar...")
-                else: 
-                    printAlgoritmos()
-                    print("Escolha o algoritmo de procura para cada jogador")
-                    player1 = int(input("Jogador 1 -> "))
-                    player2 = int(input("Jogador 2 -> "))
-                    opçãoAlg = leropção(5)
-                    if opçãoAlg == 1: # DFS
-                        if problema is None:
-                            print("Problema deve ser construido primeiro...")
-                            input("Pressione alguma tecla para continuar...")
-                        else: 
-                            caminho,custo = problema.solucaoDFS()
-                            printCaminhoMapa(caminho, custo, mapa)
-                    elif opçãoAlg == 2: # BFS
-                        if problema is None:
-                            print("Problema deve ser construido primeiro...")
-                            input("Pressione alguma tecla para continuar...")
-                        else:
-                            caminho,custo = problema.solucaoBFS()
-                            printCaminhoMapa(caminho, custo, mapa)
-                    elif opçãoAlg == 3: # A*
-                        if problema is None:
-                            print("Problema deve ser construido primeiro...")
-                            input("Pressione alguma tecla para continuar...")
-                        else:
-                            caminho, custo = problema.solucaoAStar()
-                            printCaminhoMapa(caminho, custo, mapa)            
-                    elif opçãoAlg == 4: # Greedy
-                        if problema is None:
-                            print("Problema deve ser construido primeiro...")
-                            input("Pressione alguma tecla para continuar...")
-                        else: 
-                            caminho, custo = problema.solucaoGreedy()
-                            printCaminhoMapa(caminho, custo, mapa)    
+            else: 
+                caminho,custo = problema.solucaoDFS()
+                printCaminhoMapa(caminho, custo, mapa)
+        elif opção == 4: # BFS
+            if problema is None:
+                print("Problema deve ser construido primeiro...")
+                input("Pressione alguma tecla para continuar...")
             else:
-                print("A sair...")
-                sair = True
+                caminho,custo = problema.solucaoBFS()
+                printCaminhoMapa(caminho, custo, mapa)
+        elif opção == 5: # A*
+            if problema is None:
+                print("Problema deve ser construido primeiro...")
+                input("Pressione alguma tecla para continuar...")
+            else:
+                caminho, custo = problema.solucaoAStar()
+                printCaminhoMapa(caminho, custo, mapa)            
+        elif opção == 6: # Greedy
+            if problema is None:
+                print("Problema deve ser construido primeiro...")
+                input("Pressione alguma tecla para continuar...")
+            else: 
+                caminho, custo = problema.solucaoGreedy()
+                printCaminhoMapa(caminho, custo, mapa)        
+        elif opção == 7:
+                if mapa is None:
+                    print("Mapa deve ser criado primeiro...")
+                    input("Pressione uma tecla para continuar...")
+                    continue
+                if problema is None:
+                    problema1 = Problema(mapa)
+                    problema2 = Problema(mapa)
+                    print("A construir grafo...")
+                    problema1.constroiGrafo()
+                    problema2.constroiGrafo()
+                    input("Pressione alguma tecla para voltar...")
+                
+                printAlgoritmos()
+                
+                player1 = int(input("Escolha um algoritmo de procura para o jogador 1 -> "))
+                player2 = int(input("Escolha um algoritmo de procura para o jogador 2 -> "))
+
+                if player1 == 1:
+                    caminho,custo = problema1.solucaoDFS()
+                elif player1 == 2:
+                    caminho,custo = problema1.solucaoBFS()
+                elif player1 == 3:
+                    caminho,custo = problema1.solucaoAStar()
+                elif player1 == 4:
+                    caminho,custo = problema1.solucaoGreedy()
+
+                if player2 == 1:
+                    caminho2,custo2 = problema2.solucaoDFS()
+                elif player2 == 2:
+                    caminho2,custo2 = problema2.solucaoBFS()
+                elif player2 == 3:
+                    caminho2,custo2 = problema2.solucaoAStar()
+                elif player2 == 4:
+                    caminho2,custo2 = problema2.solucaoGreedy()
+                
+                printCaminhoComp(caminho, caminho2, custo, custo2, mapa)
         else:
-                print("A sair...")
-                sair = True
+            print("A sair...")
+            sair = True
 
 if __name__ == "__main__":
     main()      
-

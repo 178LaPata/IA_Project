@@ -11,7 +11,7 @@ class Mapa:
                 lista.append("#")
             elif(i==largura-1):
                 lista.append("#")
-            elif(random.randint(1,200) < 70):
+            elif(random.randint(1,200) < 50):
                 lista.append("#")
             else:
                 lista.append("-")
@@ -19,11 +19,11 @@ class Mapa:
         return None
 
     def linhaPartida(self,largura):
-        random_number = random.randint(1, largura-2)
+        random_number = random.randint(2, largura-3)
         lista = []
         for i in range(largura):
-            if(i==random_number):
-                lista.append("P")
+            if(i==random_number or i==(random_number+1)):
+                lista.append("P")   
             else:
                 lista.append("#")
         self.m.append(lista)
