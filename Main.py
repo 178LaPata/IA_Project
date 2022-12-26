@@ -4,6 +4,7 @@ import os
 from Problema import Problema
 from Menu import printMenu
 from Mapa import Mapa
+import time
 
 def printMapa(mapa):
     os.system("clear")
@@ -40,7 +41,7 @@ def printCaminhoMapa(caminho, custo, mapa):
         aux[pos[1]][pos[0]] = "o"
 
         printMapa(aux)
-        os.system("sleep 1")
+        time.sleep(1)
 
         posAnt = pos
     
@@ -49,44 +50,75 @@ def printCaminhoMapa(caminho, custo, mapa):
 
 def printCaminhoComp(caminho1, caminho2, custo1, custo2, mapa):
     aux1 = deepcopy(mapa.m)
+    
+    caracter = {1:"O", 2:"o"}
+    caminhos = {1:caminho1, 2:caminho2}
 
-    posAnt1 = [-1,-1]
-    posAnt2 = [-1,-1]
-    parede = False
+    posAnt = {1:[-1,-1], 2:[-1,-1]}
+    parede = {1:False, 2:False}
+    finished = 0
 
-    for node in caminho1:
-        if parede:
-            aux1[posAnt1[1]][posAnt1[0]] = "#"
-        pos1 = node.getPos()
-        if (pos1[0] < 0 or pos1[0] > len(aux1[0])) or (pos1[1] < 0 or pos1[1] > len(aux1)):
-            continue
-        if aux1[pos1[1]][pos1[0]] == "#":
-            parede = True
-        else:
-            parede = False
-        aux1[pos1[1]][pos1[0]] = "O"
-
+    while finished != 2:
+        for j, caminho in caminhos.items():
+            if len(caminho) == 0:
+                continue
+            node = caminho.pop(0)
+            if parede[j]:
+                aux1[posAnt[j][1]][posAnt[j][0]] = "#"
+            pos = node.getPos()
+            if (pos[0] < 0 or pos[0] > len(aux1[0])) or (pos[1] < 0 or pos[1] > len(aux1)):
+                continue
+            if aux1[pos[1]][pos[0]] == "#":
+                parede[j] = True
+            else:
+                parede[j] = False
+            aux1[pos[1]][pos[0]] = caracter[j]
+        
+        finished = 0
+        for c in caminhos.values():
+            if len(c)==0:
+                finished += 1
         printMapa(aux1)
-        os.system("sleep 1")
+        time.sleep(1)
+        # os.system("sleep 1")
 
-        posAnt1 = pos1
+    # posAnt1 = [-1,-1]
+    # posAnt2 = [-1,-1]
+    # parede = False
 
-    for node in caminho2:
-        if parede:
-            aux1[posAnt2[1]][posAnt2[0]] = "#"
-        pos2 = node.getPos()
-        if (pos2[0] < 0 or pos2[0] > len(aux1[0])) or (pos2[1] < 0 or pos2[1] > len(aux1)):
-            continue
-        if aux1[pos2[1]][pos2[0]] == "#":
-            parede = True
-        else:
-            parede = False
-        aux1[pos2[1]][pos2[0]] = "C"
+    # for node in caminho1:
+    #     if parede:
+    #         aux1[posAnt1[1]][posAnt1[0]] = "#"
+    #     pos1 = node.getPos()
+    #     if (pos1[0] < 0 or pos1[0] > len(aux1[0])) or (pos1[1] < 0 or pos1[1] > len(aux1)):
+    #         continue
+    #     if aux1[pos1[1]][pos1[0]] == "#":
+    #         parede = True
+    #     else:
+    #         parede = False
+    #     aux1[pos1[1]][pos1[0]] = "O"
 
-        printMapa(aux1)
-        os.system("sleep 1")
+    #     printMapa(aux1)
+    #     os.system("sleep 1")
 
-        posAnt2 = pos2
+    #     posAnt1 = pos1
+
+    # for node in caminho2:
+    #     if parede:
+    #         aux1[posAnt2[1]][posAnt2[0]] = "#"
+    #     pos2 = node.getPos()
+    #     if (pos2[0] < 0 or pos2[0] > len(aux1[0])) or (pos2[1] < 0 or pos2[1] > len(aux1)):
+    #         continue
+    #     if aux1[pos2[1]][pos2[0]] == "#":
+    #         parede = True
+    #     else:
+    #         parede = False
+    #     aux1[pos2[1]][pos2[0]] = "C"
+
+    #     printMapa(aux1)
+    #     os.system("sleep 1")
+
+    #     posAnt2 = pos2
 
     print(f"Custo Jogador 1 = {custo1}")
     print(f"Custo Jogador 2 = {custo2}")
