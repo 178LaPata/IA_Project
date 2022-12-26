@@ -1,11 +1,9 @@
 import math
 from queue import Queue
 from Nodo import Nodo
-
 import networkx as nx 
 import matplotlib.pyplot as plt 
 from colorama import Fore
-
 
 class Grafo:
 
@@ -15,20 +13,12 @@ class Grafo:
         self.m_h = {} 
         self.mapa = mapa
     
-    #################################
-    # Escrever o grafo como string
-    #################################
-
     def __str__(self):
         r = ""
         for key in self.m_grafo.keys():
             r = r + "Nodo: " + str(key) + ": " + str(self.m_grafo[key]) + "\n"
 
         return r
-
-    #################################
-    # Encontrar o nodo
-    #################################
 
     def getNodo(self, nodo):
         nodoTeste = Nodo(*nodo)
@@ -38,10 +28,6 @@ class Grafo:
                 return n
 
         return None
-
-    #################################
-    # Adicionar aresta no grafo
-    #################################
 
     def adicionaAresta(self, nodo1, nodo2, peso):
         n1 = Nodo(*nodo1)
@@ -61,10 +47,6 @@ class Grafo:
     
         self.m_grafo[str(n1)].append((n2, peso))
 
-    #################################
-    # Devolver o custo de uma aresta
-    #################################
-
     def getCustoArco(self, nodo1, nodo2):
         custoT = math.inf
         a = self.m_grafo[str(nodo1)]
@@ -73,10 +55,6 @@ class Grafo:
                 custoT=custo
 
         return custoT
-        
-    #################################
-    # Calcula o custo de um caminho
-    #################################
 
     def calculaCusto(self, caminho):
         custo = 0
@@ -87,10 +65,6 @@ class Grafo:
             i+=1
 
         return custo
-    
-    #################################
-    # Procura DFS
-    #################################
 
     def procuraDFS(self, nodoInicial, posFinal, caminho=[], visited=set()):
         caminho.append(nodoInicial)
@@ -106,10 +80,6 @@ class Grafo:
                     return resultado, custoT
         caminho.pop()
         return None, None
-
-    #################################
-    # Procura BFS
-    #################################
 
     def procuraBFS(self, nodoInicial, posFinal):
         pai = {}
@@ -140,29 +110,16 @@ class Grafo:
 
         return (None, None)
 
-
-    #################################
-    # Devolve vizinhos de um nodo
-    #################################
-
     def getNeighbours(self, nodo):
         lista = []
         for (adj, peso) in self.m_grafo[str(nodo)]:
             lista.append((adj, peso))
         return lista
 
-    #################################
-    # Define heurística para cada nodo
-    #################################
-
     def adicionaHeuristica(self, n, estima):
         n1 = Nodo(n)
         if n1 in self.m_nodos:
             self.m_h[n] = estima
-
-    #################################
-    # Define heurística para cada nodo 1 por defeito
-    #################################
 
     def heuristica(self, posFinal):
         nodos = self.m_nodos
@@ -180,10 +137,6 @@ class Grafo:
                 node = k
         return node
 
-    #################################
-    # Procura A*
-    #################################
-
     def procura_aStar(self, nodoInicial, posFinal):
         open_list = {nodoInicial}
         closed_list = set([])
@@ -197,7 +150,6 @@ class Grafo:
         n = None
         
         while len(open_list) > 0:
-            #n = None
 
             calc_heurist = {}
             flag = 0
@@ -254,19 +206,11 @@ class Grafo:
         print('O caminho não existe')
         return None
 
-    #################################
-    # Devolve heurística do nodo
-    #################################
-
     def getH(self, nodo):
         if nodo not in self.m_h.keys():
             return 1000
         else:
             return (self.m_h[str(nodo)])
-
-    #################################
-    # Procura Greedy
-    #################################
 
     def procuraGreedy(self, nodoInicial, posFinal):
         open_list = set([nodoInicial])

@@ -6,6 +6,7 @@ import os
 from Problema import Problema
 from Menu import printMenu
 from Mapa import Mapa
+
 def printMapa(mapa):
     os.system("clear")
     
@@ -20,7 +21,6 @@ def printMapa(mapa):
     for y, linha in enumerate(mapa):
         print(y, end=(len(str(len(mapa)))+1-len(str(y))) * " ")
         for val in linha:
-            #  print(val, end="")
             print(f"{val:{len(str(MAXX))}}", end="")
         print()
 
@@ -32,7 +32,6 @@ def printCaminhoMapa(caminho, custo, mapa):
     for node in caminho:
         if parede:
             aux[posAnt[1]][posAnt[0]] = "#"
-        #os.system("clear")
         pos = node.getPos()
         if (pos[0] < 0 or pos[0] > len(aux[0])) or (pos[1] < 0 or pos[1] > len(aux)):
             continue
@@ -49,20 +48,6 @@ def printCaminhoMapa(caminho, custo, mapa):
     
     print(f"Custo = {custo}")
     input("Pressione alguma tecla para voltar...")
-
-#def printMenuPrincipal():
-#    printMenu()
-#    print("1 -> Mostrar Mapa")
-#    print("2 -> Construir Problema")
-#    print("3 -> Procura DFS")
-#    print("4 -> Procura BFS")
-#    print("5 -> Procura A*")
-#    print("6 -> Procura Greedy")
-#    print("0 -> Sair")
-
-#def printJogadores():
-#    print("1 -> 1 Jogador")
-#    print("2 -> 2 Jogadores")
 
 def printMenuInicial():
     print("1 -> Mostrar Mapa")
@@ -89,7 +74,6 @@ def printAlgoritmos():
     print("3 -> Procura A*")
     print("4 -> Procura Greedy")
 
-
 def leropção(opcMax):
     opção = -1
     try:
@@ -106,13 +90,6 @@ def leropção(opcMax):
     return opção
 
 def main ():
-    # mapastr =  "#######I#######\n#####     #####\n##           ##\n#     ###     #\n#   #######   #\n###  ####    ##\n##   ###    ###\n###   ###    ##\n####        ###\n#######F#######"
-    # mapastr = mapastr.split("\n")
-    # mapa = [[c for c in linha] for linha in mapastr]
-    # printMapa(mapa)
-    # problema = Problema(mapa)
-    # print("A construir grafo....")
-    # problema.constroiGrafo()
     problema = None
     mapa = None
     player = None
@@ -188,7 +165,6 @@ def main ():
                     problema = Problema(mapa)
                     print("A construir grafo....")
                     problema.constroiGrafo()
-                    problema.constroiGrafo2()
                 input("Pressione alguma tecla para voltar...")
             elif opçãoMulti == 2: # Algoritmos de Procura
                 if problema is None:
