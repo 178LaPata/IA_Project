@@ -47,13 +47,14 @@ def printCaminhoMapa(caminho, custo, mapa):
     print(f"Custo = {custo}")
     input("Pressione alguma tecla para voltar...")
 
-def printCaminhoComp(caminho, caminho2, custo, custo2, mapa):
+def printCaminhoComp(caminho1, caminho2, custo1, custo2, mapa):
     aux1 = deepcopy(mapa.m)
 
     posAnt1 = [-1,-1]
     posAnt2 = [-1,-1]
     parede = False
-    for node in caminho:
+
+    for node in caminho1:
         if parede:
             aux1[posAnt1[1]][posAnt1[0]] = "#"
         pos1 = node.getPos()
@@ -87,7 +88,7 @@ def printCaminhoComp(caminho, caminho2, custo, custo2, mapa):
 
         posAnt2 = pos2
 
-    print(f"Custo Jogador 1 = {custo}")
+    print(f"Custo Jogador 1 = {custo1}")
     print(f"Custo Jogador 2 = {custo2}")
 
     input("Pressione alguma tecla para voltar...")
@@ -127,6 +128,8 @@ def leropção(opcMax):
 def main ():
     problema = None
     mapa = None
+    problema1 = None
+    problema2 = None
 
     sair = False
     while not sair:
@@ -185,7 +188,7 @@ def main ():
                     print("Mapa deve ser criado primeiro...")
                     input("Pressione uma tecla para continuar...")
                     continue
-                if problema is None:
+                if problema1 or problema2 is None:
                     problema1 = Problema(mapa)
                     problema2 = Problema(mapa)
                     print("A construir grafo...")
@@ -199,13 +202,13 @@ def main ():
                 player2 = int(input("Escolha um algoritmo de procura para o jogador 2 -> "))
 
                 if player1 == 1:
-                    caminho,custo = problema1.solucaoDFS()
+                    caminho1,custo1 = problema1.solucaoDFS()
                 elif player1 == 2:
-                    caminho,custo = problema1.solucaoBFS()
+                    caminho1,custo1 = problema1.solucaoBFS()
                 elif player1 == 3:
-                    caminho,custo = problema1.solucaoAStar()
+                    caminho1,custo1 = problema1.solucaoAStar()
                 elif player1 == 4:
-                    caminho,custo = problema1.solucaoGreedy()
+                    caminho1,custo1 = problema1.solucaoGreedy()
 
                 if player2 == 1:
                     caminho2,custo2 = problema2.solucaoDFS()
@@ -216,7 +219,7 @@ def main ():
                 elif player2 == 4:
                     caminho2,custo2 = problema2.solucaoGreedy()
                 
-                printCaminhoComp(caminho, caminho2, custo, custo2, mapa)
+                printCaminhoComp(caminho1, caminho2, custo1, custo2, mapa)
         else:
             print("A sair...")
             sair = True
